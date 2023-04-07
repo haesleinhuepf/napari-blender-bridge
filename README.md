@@ -10,21 +10,12 @@
 
 Transfer surface layers between Napari and Blender. This plugin is young and has just limited functionality. Contributions are welcome.
 
-----------------------------------
-
-## Checklist
-After the code for this plugin has been generated, go through this list:
-* Write a minimal user guide below. Assume someone finds your plugin online and wonders how to quickly try it on your example data and on their data. Where should they start? What are the minimum necessary steps that need to be listed and explained? 
-* Search for "TODO" in this file and the code to make sure all functions are properly documented.
-* Make sure the requirements.txt correctly lists all dependencies and installation works as described below.
-* Remove this checklist from the documentation.
-
-## Usage
-
-This plugin has its own submenu with all functionality under `Tools > Blender`.
 
 ![img.png](https://github.com/haesleinhuepf/napari-blender-bridge/raw/main/docs/easter.gif)
 
+## Usage
+
+This plugin has its own submenu with all functionality under `Tools > Blender`. You can start up Blender, send a surface layer to Blender, retrieve all meshes back as one surface layer and shut down Blender.
 
 ## Installation instructions
 
