@@ -32,7 +32,7 @@ setup(
     packages=find_packages(),
     python_requires='>=3.8',
     install_requires=requirements,
-    version="0.1.0",
+    version="0.1.1",
     setup_requires=['setuptools_scm'],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
