@@ -48,16 +48,16 @@ def retrieve_all_meshes_from_blender(viewer:"napari.Viewer"):
     filename = _make_temp_dir() + "temp.stl"
     save_stl(filename)
 
-    timeout_in_sec = 30
+    timeout_in_sec = 60
     counter = 0
-    while not os.path.isfile(filename):
+    # we're checking if the correspondig .txt file exists, because
+    # this one is written after the STL file writing is done.
+    while not os.path.isfile(filename + ".txt"):
         sleep(1)
         counter += 1
         if counter > timeout_in_sec:
             warnings.warn("Could not retrieve scene from Blender.")
             return
-
-    sleep(1)
 
     new_mesh = vedo.load(filename)
     new_surface = nppas.to_napari_surface_data(new_mesh)

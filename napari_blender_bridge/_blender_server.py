@@ -25,11 +25,20 @@ def parse_command(command):
     """
     print("Executing:", command)
     if command.startswith("open_ply "):
-        bpy.ops.import_mesh.ply(filepath=command[9:])
+        filename = command[9:]
+        bpy.ops.import_mesh.ply(filepath=filename)
     elif command.startswith("save_ply "):
-        bpy.ops.export_mesh.ply(filepath=command[9:])
+        filename = command[9:]
+        bpy.ops.export_mesh.ply(filepath=filename)
+        # save a .txt file as signal for the other side that PLY file writing is done
+        with open(filename + '.txt', 'w') as f:
+            f.write('done')
     elif command.startswith("save_stl "):
-        bpy.ops.export_mesh.stl(filepath=command[9:])
+        filename = command[9:]
+        bpy.ops.export_mesh.stl(filepath=filename)
+        # save a .txt file as signal for the other side that STL file writing is done
+        with open(filename + '.txt', 'w') as f:
+            f.write('done')
     else:
         print(f"command '{command}' not understood")
     return True
