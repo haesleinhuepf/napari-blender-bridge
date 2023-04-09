@@ -2,7 +2,7 @@ import warnings
 
 from napari_plugin_engine import napari_hook_implementation
 from napari_tools_menu import register_function, register_action
-
+from ._public_api import _get_blender_path
 
 @napari_hook_implementation
 def napari_experimental_provide_function():
@@ -10,7 +10,7 @@ def napari_experimental_provide_function():
 
 
 @register_function(menu="Blender > Start up Blender")
-def start_blender(blender_path="C:/Program Files/Blender Foundation/Blender 3.5/", port:int = 8080):
+def start_blender(blender_path=_get_blender_path(), port:int = 8080):
     from ._public_api import start_blender
     start_blender(blender_path=blender_path, port=port)
 
