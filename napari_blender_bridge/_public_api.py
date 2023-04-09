@@ -6,7 +6,34 @@ class _StaticMemory:
     port = 8080
     temp_folders = []
 
-def start_blender(blender_path="C:/Program Files/Blender Foundation/Blender 3.5/", port=8080):
+
+def _set_blender_path(path):
+    import configparser
+    import os
+    filePath = os.path.expanduser('~') + '/.napari-blender-bridge.ini'
+    config = configparser.ConfigParser()
+
+    config.add_section('config')
+    config['config']['blender_path'] = path
+
+    with open(filePath, 'w') as f:
+        config.write(f)
+
+
+def _get_blender_path():
+    import configparser
+    import os
+    filePath = os.path.expanduser('~') + '/.napari-blender-bridge.ini'
+
+    try:
+        config = configparser.ConfigParser()
+        config.read(filePath)
+        return config['config']['blender_path']
+    except:
+        return "C:/Program Files/Blender Foundation/Blender 3.5/"
+
+
+def start_blender(blender_path=_get_blender_path(), port=8080):
     """
     This function starts up Blender and runs a script inside
     that listens on an TCP/IP port for commands.
@@ -15,6 +42,7 @@ def start_blender(blender_path="C:/Program Files/Blender Foundation/Blender 3.5/
     import os
 
     path = os.path.abspath(os.path.dirname(__file__)).replace("\\", "/")
+    _set_blender_path(blender_path)
     _StaticMemory.port = port
 
     subprocess.Popen(f'"{blender_path}blender" --python {path}/_blender_server.py -- {port}', shell=True)
