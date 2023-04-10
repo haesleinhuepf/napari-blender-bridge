@@ -29,8 +29,17 @@ def _get_blender_path():
         config = configparser.ConfigParser()
         config.read(filePath)
         return config['config']['blender_path']
-    except:
-        return "C:/Program Files/Blender Foundation/Blender 3.5/"
+    except:        
+        from sys import platform
+        if platform == "linux" or platform == "linux2":
+            import shutil
+            return "" or shutil.which('blender')
+        elif platform == "darwin":
+            return "/Applications/Blender.app/Contents/MacOS/Blender"
+        elif platform == "win32":
+            return "C:/Program Files/Blender Foundation/Blender 3.5/blender"
+        else:
+            return ""
 
 
 def start_blender(blender_path=_get_blender_path(), port=8080):
@@ -45,7 +54,7 @@ def start_blender(blender_path=_get_blender_path(), port=8080):
     _set_blender_path(blender_path)
     _StaticMemory.port = port
 
-    subprocess.Popen(f'"{blender_path}blender" --python {path}/_blender_server.py -- {port}', shell=True)
+    subprocess.Popen(f'"{blender_path}" --python {path}/_blender_server.py -- {port}', shell=True)
 
 
 def disconnect():
